@@ -74,6 +74,8 @@ namespace Elementario
                 dir = Vector2.Transform(b.dir, Matrix.CreateRotationZ(MathHelper.ToRadians(-15)));
                 projectiles.Add(new Boulder(Game1.spriteSheet, pos, SpriteRegions.Boulder, null, dir, projectileSpeed, damage / 2, splashRadius / 2, lifeTime, 0.9f, Color.White, false));
             }
+
+            Game1.soundManager.PlaySound("se_enep00");
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

@@ -140,12 +140,17 @@ namespace Elementario
             if (currentHealth <= 0)
                 dead = true;
 
+            for (int i = 0; i < 3; i++)
+                GenerateParticle();
             if (dead)
+            {
+                Game1.soundManager.PlaySound("se_focusfix");
                 for (int i = 0; i < 50; i++)
-                    GenerateDeathParticle();
+                    GenerateParticle();
+            }
         }
 
-        protected virtual Color DeathColor
+        protected virtual Color ParticleColor
         {
             get
             {
@@ -155,14 +160,14 @@ namespace Elementario
             }
         }
 
-        protected virtual void GenerateDeathParticle()
+        protected virtual void GenerateParticle()
         {
             Vector2 particleVelocity = new Vector2(Game1.rnd.Next(-20, 20) / 20f, Game1.rnd.Next(-20, 20) / 20f);
             particleVelocity.Normalize();
             particleVelocity *= Game1.rnd.Next(20)/20f;
             float lifeTime = lifeTime = 400 + Game1.rnd.Next(800);
             float size = 3f;
-            Game1.particleEngine.CreateParticle(Game1.colorTexture, pos, new Rectangle(0,0,1,1), particleVelocity, DeathColor, size, lifeTime);
+            Game1.particleEngine.CreateParticle(Game1.colorTexture, pos, new Rectangle(0,0,1,1), particleVelocity, ParticleColor, size, lifeTime);
         }
 
         public void UpdatePath()

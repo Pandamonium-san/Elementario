@@ -16,9 +16,9 @@ namespace Elementario
         {
             name = "Fire Tower";
             projectiles = new List<Projectile>();
-            attackSpeed = 10f;
-            projectileSpeed = 5f;
-            damage = 35f;
+            attackSpeed = 3f;
+            projectileSpeed = 3f;
+            damage = 80f;
             range = 70f;
             splashRadius = 50f;
             cost = 150;
@@ -35,7 +35,7 @@ namespace Elementario
             damage += (rank+1)*15;
             range += 3;
             splashRadius += 0.4f;
-            attackSpeed += 0.2f;
+            attackSpeed += 0.3f;
             if (rank == 15)
                 ++nrOfProjectiles;
             if (rank == 30)
@@ -59,6 +59,8 @@ namespace Elementario
                 dir.Normalize();
                 projectiles.Add(new Projectile(Game1.spriteSheet, pos, SpriteRegions.FireBullet, null, dir, projectileSpeed, damage, splashRadius, slowAmount, slowDuration, lifeTime, Color.White, false));
             }
+
+            Game1.soundManager.PlaySound("se_damage01");
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

@@ -73,6 +73,8 @@ namespace Elementario
 
             foreach (Projectile p in projectiles)
                 p.UpdateTarget(target);
+
+            Game1.soundManager.PlaySound("se_tan00");
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

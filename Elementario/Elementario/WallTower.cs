@@ -58,6 +58,9 @@ namespace Elementario
             if (rank == 0)
                 color = Color.White * 0.2f;
             projectiles.Add(new RicochetP(Game1.spriteSheet, pos, SpriteRegions.Shuriken, target, projectileSpeed, damage, splashRadius, slowAmount, slowDuration, bounces, 5f, color, false));
+
+            if (rank > 0)
+                Game1.soundManager.PlaySound("se_focusfix2");
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

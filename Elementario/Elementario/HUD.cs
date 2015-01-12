@@ -15,7 +15,7 @@ namespace Elementario
         int windowX, windowY;
 
         public List<TextureButton> buttons;
-        TextButton startButton, upgradeButton, sellButton;
+        TextButton startButton, upgradeButton, sellButton, muteButton;
 
         public bool pause;
 
@@ -35,7 +35,7 @@ namespace Elementario
                 {
                     if (i + j == 3)
                         break;
-                    buttons.Add(new TextureButton(Game1.spriteSheet, new Rectangle(0 + type * 48, 0, 48, 48), new Vector2(rec.X + 60 + j * 72, rec.Y + 260 + i*72), type));
+                    buttons.Add(new TextureButton(Game1.spriteSheet, new Rectangle(0 + type * 48, 0, 48, 48), new Vector2(rec.X + 60 + j * 72, rec.Y + 260 + i * 72), type));
                     ++type;
                 }
             }
@@ -43,10 +43,12 @@ namespace Elementario
             upgradeButton = new TextButton(Game1.font, new Vector2(windowX - 110, windowY - 260), "Upgrade", 1f);
             sellButton = new TextButton(Game1.font, new Vector2(windowX - 127, windowY - 200), "Sell", 1f);
             startButton = new TextButton(Game1.font2, new Vector2(windowX - 90, windowY - 40), "START", 1f);
+            muteButton = new TextButton(Game1.font, new Vector2(windowX - 270, windowY - 35), "Mute", 1f);
         }
 
         public void Update()
         {
+            MuteButton();
             SellButton();
             StartButton();
             UpgradeButton();
@@ -58,6 +60,25 @@ namespace Elementario
                     Game1.towerManager.placeTool = (TowerManager.Place)b.type;
                     Game1.towerManager.Deselect();
                     Game1.towerManager.selection = TowerManager.Selection.Place;
+                }
+            }
+        }
+
+        private void MuteButton()
+        {
+            muteButton.Update();
+            if(muteButton.ButtonClicked())
+            {
+                Game1.soundManager.muted = !Game1.soundManager.muted;
+                if (Game1.soundManager.muted)
+                {
+                    Game1.soundManager.volume = 0;
+                    muteButton.name = "Muted";
+                }
+                else
+                {
+                    Game1.soundManager.volume = 1;
+                    muteButton.name = "Mute";
                 }
             }
         }
@@ -128,6 +149,7 @@ namespace Elementario
             startButton.Draw(spriteBatch);
             upgradeButton.Draw(spriteBatch);
             sellButton.Draw(spriteBatch);
+            muteButton.Draw(spriteBatch);
 
             if(Game1.towerManager.activeTower != null && Game1.towerManager.selection != TowerManager.Selection.None)
             DrawTowerInfo(spriteBatch, Game1.towerManager.activeTower);

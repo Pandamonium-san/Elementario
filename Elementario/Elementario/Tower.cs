@@ -60,7 +60,7 @@ namespace Elementario
             {
                 projectiles[i].Update(gameTime);
                 ProjectileCollision(projectiles[i], Game1.enemyManager.enemies);
-                if (projectiles[i].lifeTime <= 0)
+                if (projectiles[i].lifeTime <= 0 || !Game1.windowRec.Contains((int)projectiles[i].pos.X, (int)projectiles[i].pos.Y))
                 {
                     projectiles.Remove(projectiles[i]);
                     --i;

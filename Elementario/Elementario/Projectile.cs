@@ -48,6 +48,7 @@ namespace Elementario
                 this.dir = (Vector2)dir;
             this.dir.Normalize();
 
+            rotation = (float)(Math.Atan2(this.dir.Y, this.dir.X)) + MathHelper.ToRadians(135);
             radius = 6;
             this.lifeTime = lifeTime;
         }
@@ -64,6 +65,7 @@ namespace Elementario
             if (p.splashRadius > 0)
             {
                 Game1.particleEngine.CreateExplosion(p.pos, p.splashRadius, 300f, splashColor * 0.7f);
+                Game1.soundManager.PlaySound("se_damage00");
                 foreach (Enemy e in enemies)
                 {
                     if (p.splashedTargets > p.splashLimit)
@@ -85,8 +87,6 @@ namespace Elementario
 
         protected virtual void UpdateDirection()
         {
-            if (target == null)
-                return;
             Vector2 targetDir = target.pos - pos;
             Vector3 targetDir3 = new Vector3(targetDir, 0);
             Vector3 dir3 = new Vector3(dir, 0);

@@ -123,6 +123,8 @@ namespace Elementario
             {
                 projectiles.Add(new Projectile(Game1.spriteSheet, pos, SpriteRegions.Bullet, e, null, projectileSpeed, damage, splashRadius, slowAmount, slowDuration, lifeTime, Color.CornflowerBlue, true));
             }
+
+            Game1.soundManager.PlaySound("se_enep002");
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

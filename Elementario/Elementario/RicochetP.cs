@@ -57,6 +57,7 @@ namespace Elementario
                 alreadyHit = new List<Enemy>();
                 target = TargetClosestNotHitEnemy();
             }
+            Game1.soundManager.PlaySound("se_focusfix2");
         }
 
         private Enemy TargetClosestNotHitEnemy()

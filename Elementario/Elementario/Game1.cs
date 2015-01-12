@@ -19,6 +19,7 @@ namespace Elementario
         public static Texture2D colorTexture, spriteSheet;
         public static SpriteFont titleFont, font,font2, font3;
         public static Random rnd = new Random();
+        public static Rectangle windowRec;
         public enum GameState { Title, Playing, Paused }
         GameState gameState = GameState.Title;
 
@@ -27,6 +28,7 @@ namespace Elementario
         public static EnemyManager enemyManager;
         public static HUD hud;
         public static ParticleEngine2D particleEngine;
+        public static SoundManager soundManager;
         Menu menu;
 
         public static bool showNodes;
@@ -40,6 +42,8 @@ namespace Elementario
             graphics.PreferredBackBufferWidth = 1080;
             graphics.PreferredBackBufferHeight = 720;
             IsMouseVisible = true;
+
+            windowRec = new Rectangle(0, 0, 1080, 720);
         }
 
         protected override void Initialize()
@@ -67,6 +71,7 @@ namespace Elementario
             enemyManager = new EnemyManager();
             particleEngine = new ParticleEngine2D(GraphicsDevice);
             menu = new Menu(Window);
+            soundManager = new SoundManager();
         }
 
         private void Play()
@@ -80,6 +85,9 @@ namespace Elementario
 
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.H))
+            Game1.soundManager.PlaySound("se_focusfix");
+            soundManager.Update();
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
             KeyMouseReader.Update();
