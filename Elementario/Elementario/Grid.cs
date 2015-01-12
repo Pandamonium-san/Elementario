@@ -73,16 +73,17 @@ namespace Elementario
         {
             spriteBatch.Draw(tex, gridRec, new Color(20,50,20));
 
+            if(Game1.showNodes)
             foreach (var n in nodes)  //Draw nodes
             {
-                //if (n.closed && n.parent != null)
-                //{
-                //    spriteBatch.Draw(Game1.colorTexture, n.hitbox, Color.Black);
-                //}
-                //if (n.open)
-                //    spriteBatch.Draw(Game1.colorTexture, n.hitbox, Color.White);
-                //if (PathFinder.currentNode != null)
-                //    spriteBatch.Draw(Game1.colorTexture, PathFinder.currentNode.hitbox, Microsoft.Xna.Framework.Color.Red);
+                if (n.closed && n.parent != null)
+                {
+                    spriteBatch.Draw(Game1.colorTexture, n.hitbox, Color.Black);
+                }
+                if (n.open)
+                    spriteBatch.Draw(Game1.colorTexture, n.hitbox, Color.White);
+                if (PathFinder.currentNode != null)
+                    spriteBatch.Draw(Game1.colorTexture, PathFinder.currentNode.hitbox, Microsoft.Xna.Framework.Color.Red);
             }
         }
     }

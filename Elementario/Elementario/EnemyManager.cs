@@ -74,7 +74,6 @@ namespace Elementario
                     --i;
                 }
             }
-
         }
 
         public void SendNextWave()
@@ -89,72 +88,62 @@ namespace Elementario
 
         public void AddEnemyWaveToQueue()
         {
-            int type = 0;
+            int alt = Game1.rnd.Next(0, 2) * 24;
+
             if (wave % 10 == 0)
-                type = 4;
-            else if (wave % 7 == 0)
-                type = 3;
-            else if (wave % 6 == 0)
-                type = 1;
-            else if (wave % 4 == 0)
-                type = 2;
-            switch (type)
             {
-                case 1:
-                    for (int i = 0; i < 10; i++)
-                    {
-                    enemyQueue.Add(new FastEnemy(Game1.spriteSheet, new Rectangle(24, 49, 24, 24), spawnNode1, endNode1, enemyLevel));
-                    enemyQueue.Add(new FastEnemy(Game1.spriteSheet, new Rectangle(24, 49, 24, 24), spawnNode2, endNode2, enemyLevel));
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < 30; i++)
-                    {
-                    enemyQueue.Add(new SmallEnemy(Game1.spriteSheet, new Rectangle(48, 49, 24, 24), spawnNode1, endNode1, enemyLevel));
-                    enemyQueue.Add(new SmallEnemy(Game1.spriteSheet, new Rectangle(48, 49, 24, 24), spawnNode2, endNode2, enemyLevel));
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < 5; i++)
-                    {
-                        enemyQueue.Add(new BigEnemy(Game1.spriteSheet, new Rectangle(72, 49, 24, 24), spawnNode1, endNode1, enemyLevel));
-                        enemyQueue.Add(new BigEnemy(Game1.spriteSheet, new Rectangle(72, 49, 24, 24), spawnNode2, endNode2, enemyLevel));
-                    }
-                    break;
-                case 4:
-                    for (int i = 0; i < 1; i++)
-                    {
-                        enemyQueue.Add(new BossEnemy(Game1.spriteSheet, new Rectangle(96, 49, 24, 24), spawnNode1, endNode1, enemyLevel));
-                        enemyQueue.Add(new BossEnemy(Game1.spriteSheet, new Rectangle(96, 49, 24, 24), spawnNode2, endNode2, enemyLevel));
-                    }
-                    enemyLevel += 5;
-                    break;
-                default:
-                    for (int i = 0; i < 10; i++)
-                    {
-                        enemyQueue.Add(new Enemy(Game1.spriteSheet, new Rectangle(0, 49, 24, 24), spawnNode1, endNode1, enemyLevel));
-                        enemyQueue.Add(new Enemy(Game1.spriteSheet, new Rectangle(0, 49, 24, 24), spawnNode2, endNode2, enemyLevel));
-                    }
-                    break;
+                enemyQueue.Add(new BossEnemy(Game1.spriteSheet, new Rectangle(96, 49, 24, 24), spawnNode1, endNode1, enemyLevel));
+                enemyQueue.Add(new BossEnemy(Game1.spriteSheet, new Rectangle(96, 49, 24, 24), spawnNode2, endNode2, enemyLevel));
+                enemyLevel += 10;
             }
+            else if (wave % 7 == 0)
+                for (int i = 0; i < 5; i++)
+                {
+                    enemyQueue.Add(new BigEnemy(Game1.spriteSheet, new Rectangle(71, 49 + alt, 24, 24), spawnNode1, endNode1, enemyLevel));
+                    enemyQueue.Add(new BigEnemy(Game1.spriteSheet, new Rectangle(71, 49 + alt, 24, 24), spawnNode2, endNode2, enemyLevel));
+                }
+            else if (wave % 6 == 0)
+                for (int i = 0; i < 10; i++)
+                {
+                    enemyQueue.Add(new FastEnemy(Game1.spriteSheet, new Rectangle(24, 49 + alt, 24, 24), spawnNode1, endNode1, enemyLevel));
+                    enemyQueue.Add(new FastEnemy(Game1.spriteSheet, new Rectangle(24, 49 + alt, 24, 24), spawnNode2, endNode2, enemyLevel));
+                }
+            else if (wave % 4 == 0)
+            {
+                for (int i = 0; i < 25; i++)
+                {
+                    enemyQueue.Add(new SmallEnemy(Game1.spriteSheet, new Rectangle(48, 49 + alt, 24, 24), spawnNode1, endNode1, enemyLevel));
+                    enemyQueue.Add(new SmallEnemy(Game1.spriteSheet, new Rectangle(48, 49 + alt, 24, 24), spawnNode2, endNode2, enemyLevel));
+                }
+            }
+            else
+                for (int i = 0; i < 10; i++)
+                {
+                    enemyQueue.Add(new Enemy(Game1.spriteSheet, new Rectangle(0, 49 + alt, 24, 24), spawnNode1, endNode1, enemyLevel));
+                    enemyQueue.Add(new Enemy(Game1.spriteSheet, new Rectangle(0, 49 + alt, 24, 24), spawnNode2, endNode2, enemyLevel));
+                }
         }
 
         public void SpawnNextEnemy()
         {
             if (enemyQueue.Count() == 0)
                 return;
-            if (enemyQueue[0] is SmallEnemy)
+            if (enemyQueue.Count >= 50)
                 secsBetweenEnemySpawns = 0.1f;
-            else if (enemyQueue.Count >= 20)
+            else if (enemyQueue[0] is SmallEnemy)
                 secsBetweenEnemySpawns = 0.2f;
-            else
+            else if (enemyQueue.Count >= 20)
                 secsBetweenEnemySpawns = 0.3f;
-            enemies.Add(enemyQueue[0]);
-            enemies.Add(enemyQueue[1]);
-            enemyQueue[0].UpdatePath();
-            enemyQueue[1].UpdatePath();
-            enemyQueue.RemoveAt(1);
-            enemyQueue.RemoveAt(0);
+            else
+                secsBetweenEnemySpawns = 0.5f;
+            for (int i = 0; i < 2; i++)
+            {
+                if (enemyQueue.Count() == 0)
+                    return;
+                enemies.Add(enemyQueue[0]);
+                enemyQueue[0].UpdatePath();
+                enemyQueue.RemoveAt(0);
+            }
 
             secsToNextEnemySpawn = secsBetweenEnemySpawns;
         }
@@ -168,7 +157,6 @@ namespace Elementario
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             foreach (Node n in keyNodes)
                 spriteBatch.Draw(Game1.colorTexture, n.hitbox, Color.Blue);
             foreach(Enemy e in enemies)

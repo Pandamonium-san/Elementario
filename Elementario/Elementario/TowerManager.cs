@@ -21,7 +21,7 @@ namespace Elementario
         public enum Selection { None, Tower, Place }
         public Selection selection;
 
-        public enum Place { Tower, FireTower, WaterTower, EarthTower, WindTower }
+        public enum Place { WallTower, FireTower, WaterTower, EarthTower, WindTower }
         public Place placeTool = Place.FireTower;
 
         public bool triedBlockingPath;
@@ -35,7 +35,7 @@ namespace Elementario
             ghostTower.alpha = 0.5f;
 
             towerRenderTarget = new RenderTarget2D(graphics, graphics.PresentationParameters.BackBufferWidth, graphics.PresentationParameters.BackBufferHeight);
-            resource = 100000;
+            resource = 1000;
         }
 
         public void Update(GameTime gameTime, GameWindow window, Grid grid)
@@ -160,9 +160,9 @@ namespace Elementario
 
         public void UpgradeTower(Tower t)
         {
-            if (resource < t.cost || !(t is Tower))
+            if (resource < t.upgradeCost)
                 return;
-            resource -= t.cost;
+            resource -= t.upgradeCost;
             t.Upgrade();
             UpdateRangeIndicator();
         }
@@ -189,17 +189,20 @@ namespace Elementario
             Tower t;
             switch (placeTool)
             {
+                case Place.WallTower:
+                    t = new WallTower(Game1.spriteSheet, ghostTower.pos, SpriteRegions.WallTower);
+                    break;
                 case Place.FireTower:
-                    t = new FireTower(Game1.spriteSheet, ghostTower.pos, new Rectangle(48, 0, 48, 48));
+                    t = new FireTower(Game1.spriteSheet, ghostTower.pos, SpriteRegions.FireTower);
                     break;
                 case Place.WaterTower:
-                    t = new WaterTower(Game1.spriteSheet, ghostTower.pos, new Rectangle(48 * 2, 0, 48, 48));
+                    t = new WaterTower(Game1.spriteSheet, ghostTower.pos, SpriteRegions.WaterTower);
                     break;
                 case Place.EarthTower:
-                    t = new EarthTower(Game1.spriteSheet, ghostTower.pos, new Rectangle(48 * 3, 0, 48, 48));
+                    t = new EarthTower(Game1.spriteSheet, ghostTower.pos, SpriteRegions.EarthTower);
                     break;
                 case Place.WindTower:
-                    t = new WindTower(Game1.spriteSheet, ghostTower.pos, new Rectangle(48 * 4, 0, 48, 48));
+                    t = new WindTower(Game1.spriteSheet, ghostTower.pos, SpriteRegions.WindTower);
                     break;
                 default:
                     t = new Tower(Game1.spriteSheet, ghostTower.pos, new Rectangle(0, 0, 48, 48));
@@ -287,14 +290,18 @@ namespace Elementario
             graphics.SetRenderTarget(null);
         }
 
+        public void DrawProjectiles(SpriteBatch spriteBatch)
+        {
+            foreach (Tower t in towers)
+                t.DrawProjectiles(spriteBatch);
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if(selection == Selection.Place)
             ghostTower.Draw(spriteBatch);
             foreach (Tower t in towers)
                 t.Draw(spriteBatch);
-            foreach (Tower t in towers)
-                t.DrawProjectiles(spriteBatch);
             if (selection != Selection.None && activeTower != null && rangeIndicator != null && activeTower.range > 0)
                 spriteBatch.Draw(rangeIndicator, activeTower.pos - new Vector2(activeTower.range,activeTower.range) + activeTower.origin, null, Color.Blue*0.2f, 0f, activeTower.origin, 1f, SpriteEffects.None, 0f);
         }

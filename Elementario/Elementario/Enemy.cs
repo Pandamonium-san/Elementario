@@ -38,6 +38,10 @@ namespace Elementario
             {
                 x = (int)(pos.X - Grid.offsetX) / Grid.nodeSize;
                 y = (int)(pos.Y - Grid.offsetY) / Grid.nodeSize;
+                if (x > 34)
+                    x = 34;
+                if (y > 24)
+                    y = 24;
                 return Game1.grid.nodes[x, y];
             }
         }
@@ -47,22 +51,22 @@ namespace Elementario
         {
             this.destination = destination;
 
-            maxHealth = (200f + 10 * level) * (1 + (float)level / 10f);
+            maxHealth = (150f + 12 * level) * (1f + (float)level / 10f);
             currentHealth = maxHealth;
             bounty = (int)(10 + 1 * level);
 
-            speed = 1f + (float)level/50f;
-            if (speed > 10f)
-                speed = 10f;
+            speed = 0.7f + (float)level/75f;
+            if (speed > 8f)
+                speed = 8f;
 
-            radius = 10f;
+            radius = 5f;
 
             moving = false;
             step = 0;
             UpdatePath();
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             Movement(gameTime);
             if (!moving)
@@ -111,8 +115,8 @@ namespace Elementario
 
         private void Slowed(Projectile p)
         {
-            if(slowAmount < p.slowAmount)
-            slowAmount = p.slowAmount;
+            if (slowAmount < p.slowAmount)
+                slowAmount = p.slowAmount;
             slowDuration = p.slowDuration;
             slowed = true;
             UpdateVelocity();
@@ -128,6 +132,8 @@ namespace Elementario
 
         public void TakeDamage(Projectile p, float damage)
         {
+            if (dead)
+                return;
             currentHealth -= damage;
             if (p.slowAmount > 0)
                 Slowed(p);
@@ -143,7 +149,9 @@ namespace Elementario
         {
             get
             {
-                return new Color(255, Game1.rnd.Next(0, 250), Game1.rnd.Next(0, 50));
+                Color[] colorData = new Color[spriteRec.Width * spriteRec.Height];
+                tex.GetData<Color>(0, spriteRec, colorData, 0, spriteRec.Width * spriteRec.Height);
+                return colorData[Game1.rnd.Next(0, colorData.Length)];
             }
         }
 

@@ -23,26 +23,26 @@ namespace Elementario
             damage = 10f;
             attackSpeed = 1.5f;
             range = 100f;
-            cost = 100;
-
             slowAmount = 0.2f;
             slowDuration = 1f;
 
-            projectileSpeed = 7f;
+            cost = 100;
+            upgradeCost = 100;
+
+            splashColor = Color.CornflowerBlue;
+            projectileSpeed = 5f;
 
             towerDescription = "Targets multiple \nenemies at once and \nslows them";
         }
 
         public override void Upgrade()
         {
-            ++rank;
-            totalCost += cost;
-            damage += rank * 10f;
-            attackSpeed += 0.1f;
+            base.Upgrade();
+            damage += 5 + rank * 10f;
+            attackSpeed += 0.05f;
             range += 5;
-            cost = (int)(cost + 500);
-
             slowAmount += 0.05f;
+            projectileSpeed += 0.07f;
             if (slowAmount > 0.8f)
             {
                 damage += 15 * rank;
@@ -50,20 +50,19 @@ namespace Elementario
             }
             if(rank%2==0)
                 ++maxTargets;
-        }
-
-        public override void ProjectileCollision(Projectile p, List<Enemy> enemies)
-        {
-            if ((p.target.pos - p.pos).Length() <= p.target.radius + p.radius)
+            if(rank == 20)
             {
-                p.CollidedWithEnemy(p.target);
+                splashRadius += 30f;
+                slowDuration += 1f;
             }
+
+            upgradeCost = (int)(upgradeCost + 200 + rank * 90);
         }
 
         private Enemy FirstPlaceEnemy(List<Enemy> enemies)
         {
             Enemy inFirst = null;
-            for (int j = 0; j < enemies.Count(); j++)
+            for ( int j = 0; j < enemies.Count(); j++)
             {
                 if (inFirst == null || (enemies[j].step < inFirst.step))
                 {
@@ -122,7 +121,7 @@ namespace Elementario
             float lifeTime = 10;
             foreach (Enemy e in targets)
             {
-                projectiles.Add(new Projectile(Game1.spriteSheet, pos, new Rectangle(0, 84, 12, 12), e, projectileSpeed, damage, 0f, slowAmount, slowDuration, lifeTime, Color.CornflowerBlue));
+                projectiles.Add(new Projectile(Game1.spriteSheet, pos, SpriteRegions.Bullet, e, null, projectileSpeed, damage, splashRadius, slowAmount, slowDuration, lifeTime, Color.CornflowerBlue, true));
             }
         }
 

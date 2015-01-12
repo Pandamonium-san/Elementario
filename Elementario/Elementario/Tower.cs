@@ -10,7 +10,7 @@ namespace Elementario
     public class Tower : Sprite
     {
         public string name, towerDescription = "";
-        public int cost, totalCost, rank;
+        public int cost, upgradeCost, totalCost, rank;
         public float range;
         public Rectangle hitbox
         {
@@ -26,32 +26,20 @@ namespace Elementario
         public float projectileSpeed, damage, attackSpeed, cooldown;
         public float splashRadius;
         public float slowAmount, slowDuration;
+        protected Color splashColor = Color.White;
         protected Enemy target;
 
         public Tower(Texture2D tex, Vector2 pos, Rectangle spriteRec)
             : base(tex, pos, spriteRec)
         {
-            name = "Wall Tower";
             projectiles = new List<Projectile>();
-            attackSpeed = 1f;
-            projectileSpeed = 4f;
-            damage = 5f;
-            range = 100f;
-            cost = 10;
-
             cooldown = 0f;
-            towerDescription = "Cheap tower used \nmainly for pathing";
         }
 
         public virtual void Upgrade()
         {
             ++rank;
-            totalCost += cost;
-            attackSpeed += 0.1f;
-            damage += 3+1f*rank;
-            range += 4;
-
-            cost = (int)(cost + 20);
+            totalCost += upgradeCost;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -80,14 +68,37 @@ namespace Elementario
             }
         }
 
-        public virtual void ProjectileCollision(Projectile p, List<Enemy> enemies)
+        public void ProjectileCollision(Projectile p, List<Enemy> enemies)
+        {
+            if (p.targetOnly)
+                CollidesWithTarget(p);
+            else
+                CollidesWithFirstEnemy(p, enemies);
+
+            if (p.splashRadius > 0)
+                if (p.lifeTime <= 0)
+                    p.Splash(p, enemies, damage, splashColor);
+        }
+
+        protected void CollidesWithTarget(Projectile p)
+        {
+            if (p.target == null)
+            {
+                p.lifeTime = 0;
+                return;
+            }
+            if ((p.target.pos - p.pos).Length() <= p.target.radius + p.radius)
+            {
+                p.CollidedWithEnemy(p.target);
+            }
+        }
+
+        protected void CollidesWithFirstEnemy(Projectile p, List<Enemy> enemies)
         {
             foreach (Enemy e in enemies)
             {
-                if ((e.pos - p.pos).Length() <= e.radius + p.radius)
-                {
+                if ((e.pos - p.pos).Length() < e.radius + p.radius)
                     p.CollidedWithEnemy(e);
-                }
             }
         }
 
@@ -101,24 +112,8 @@ namespace Elementario
             return null;
         }
 
-        public void Splash(Projectile p, List<Enemy> enemies, float damage, Color splashColor)
-        {
-            if (p.splashRadius > 0)
-            {
-                Game1.particleEngine.CreateExplosion(p.pos, p.splashRadius, 300f, splashColor * 0.7f);
-                foreach (Enemy E in enemies)
-                    if ((E.pos - p.pos).Length() <= p.splashRadius)
-                    {
-                        if (p.splashedTargets > p.splashLimit)
-                            break;
-                        p.SplashedEnemy(E, damage);
-                        ++p.splashedTargets;
-                    }
-            }
-        }
         protected virtual void Shoot()
         {
-            projectiles.Add(new Projectile(Game1.spriteSheet, pos, new Rectangle(0, 84, 12, 12), target, projectileSpeed, damage, 0f, 0f, 0f, 10f, Color.Gray));
         }
 
         public virtual void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

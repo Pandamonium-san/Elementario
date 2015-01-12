@@ -47,11 +47,6 @@ namespace Elementario
 
         public void Update()
         {
-            if (Game1.towerManager.activeTower != null)
-            {
-                upgradeButton.name = "Upgrade\n(" + Game1.towerManager.activeTower.cost.ToString() + ")";
-                sellButton.name = "Sell\n(" + ((int)(Game1.towerManager.activeTower.totalCost * 0.75f)).ToString() + ")";
-            }
             SellButton();
             StartButton();
             UpgradeButton();
@@ -101,21 +96,26 @@ namespace Elementario
             if (!Game1.enemyManager.started)
                 info = "Enemies spawn on the top and left blue squares and move to the square opposite";
             else if (Game1.towerManager.triedBlockingPath)
-                info = "Cannot place tower there; blocking enemy path";
+                info = "Cannot place tower; blocking enemy path";
             else if ((Game1.enemyManager.wave + 1) % 10 == 0)
-                info = "A big one is coming.";
+                info = "Prepare yourself for a tough one.";
             else if ((Game1.enemyManager.wave + 1) % 7 == 0)
-                info = "Is that a tree? Or maybe a door?";
+                info = "Coming up... I'm not sure what that is.";
             else if ((Game1.enemyManager.wave + 1) % 6 == 0)
                 info = "Next wave is speeeedy. Better get some Water.";
             else if ((Game1.enemyManager.wave + 1) % 4 == 0)
                 info = "Bunch of little guys coming. Fire is effective.";
 
-            spriteBatch.DrawString(Game1.font3, info, new Vector2(150, 10), Color.White);
+            spriteBatch.DrawString(Game1.font3, info, new Vector2(170, 15), Color.White);
         }
 
         private void DrawTowerInfo(SpriteBatch spriteBatch, Tower activeTower)
         {
+            if (Game1.towerManager.activeTower != null)
+            {
+                upgradeButton.name = "Upgrade\n(" + Game1.towerManager.activeTower.upgradeCost.ToString() + ")";
+                sellButton.name = "Sell\n(" + ((int)(Game1.towerManager.activeTower.totalCost * 0.75f)).ToString() + ")";
+            }
             activeTower.DrawTowerInfo(spriteBatch, windowX, windowY);
         }
 
@@ -131,8 +131,8 @@ namespace Elementario
 
             if(Game1.towerManager.activeTower != null && Game1.towerManager.selection != TowerManager.Selection.None)
             DrawTowerInfo(spriteBatch, Game1.towerManager.activeTower);
-            spriteBatch.DrawString(Game1.font, "Lives: " + ((int)Game1.enemyManager.playerLives).ToString(), new Vector2(20, 10), Color.White);
-            spriteBatch.DrawString(Game1.font, "Current wave: " + Game1.enemyManager.wave.ToString(), new Vector2(20, windowY - 50), Color.White);
+            spriteBatch.DrawString(Game1.font, "Lives " + ((int)Game1.enemyManager.playerLives).ToString(), new Vector2(20, 10), Color.White);
+            spriteBatch.DrawString(Game1.font, "Current wave " + Game1.enemyManager.wave.ToString(), new Vector2(20, windowY - 50), Color.White);
             spriteBatch.DrawString(Game1.font, "Next wave spawns in " + ((int)Game1.enemyManager.secsToNextLevel).ToString(), new Vector2(500, windowY - 50), Color.White);
             spriteBatch.DrawString(Game1.font, "Resources " + "\n" + ((int)Game1.towerManager.resource).ToString(), new Vector2(windowX - 150, windowY - 150), Color.White);
 

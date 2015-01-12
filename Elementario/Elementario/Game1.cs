@@ -29,9 +29,8 @@ namespace Elementario
         public static ParticleEngine2D particleEngine;
         Menu menu;
 
-        bool alreadyWon;
-
-        public static bool debug;
+        public static bool showNodes;
+        bool alreadyWon, debugMode;
 
         public Game1()
         {
@@ -100,9 +99,8 @@ namespace Elementario
                     towerManager.Update(gameTime, Window, grid);
                     enemyManager.Update(gameTime);
                     particleEngine.Update(gameTime);
-                    if (KeyMouseReader.KeyPressed(Keys.P) || Game1.debug)
+                    if (KeyMouseReader.KeyPressed(Keys.P))
                     {
-                        Game1.debug = false;
                         menu.LoadPauseScreen();
                         gameState = GameState.Paused;
                     }
@@ -133,18 +131,49 @@ namespace Elementario
                 default:
                     break;
             }
+            if (KeyMouseReader.KeyPressed(Keys.F12))
+                debugMode = !debugMode;
+            if (debugMode)
+                Debug();
+
+            base.Update(gameTime);
+        }
+
+        private void Debug()
+        {
             if (KeyMouseReader.KeyPressed(Keys.E))
                 enemyManager.enemies.Add(new Enemy(spriteSheet, new Rectangle(0, 49, 24, 24), enemyManager.spawnNode1, enemyManager.endNode1, 1));
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (KeyMouseReader.KeyPressed(Keys.F1))
+                towerManager.resource += 100000;
+
+            if (KeyMouseReader.KeyPressed(Keys.F11))
+                showNodes = !showNodes;
+            if (Keyboard.GetState().IsKeyDown(Keys.F2))
                 PathFinder.SearchStep();
-            if (KeyMouseReader.KeyPressed(Keys.S))
+            if (KeyMouseReader.KeyPressed(Keys.F3))
                 PathFinder.SearchStep();
             if (KeyMouseReader.KeyPressed(Keys.Add))
                 PathFinder.I += 1000;
             if (KeyMouseReader.KeyPressed(Keys.Subtract))
                 PathFinder.I -= 1000;
+        }
 
-            base.Update(gameTime);
+        private void DrawDebug(SpriteBatch spriteBatch)
+        {
+            Node hoverNode = null;
+            foreach (Node n in grid.nodes)
+            {
+                if (n.hitbox.Contains(KeyMouseReader.mousePos))
+                    hoverNode = n;
+            }
+            spriteBatch.DrawString(Game1.font3, "DebugModeActive", new Vector2(50, 630), Color.White);
+            spriteBatch.DrawString(Game1.font3, "EnemyQueueCount " + enemyManager.enemyQueue.Count().ToString(), new Vector2(50, 615), Color.White);
+            spriteBatch.DrawString(Game1.font3, "PathFinderIterations " + PathFinder.I.ToString(), new Vector2(50, 600), Color.White);
+            if (hoverNode != null)
+            {
+                spriteBatch.DrawString(Game1.font3, "Node F-value " + hoverNode.F.ToString(), new Vector2(50, 585), Color.White);
+                spriteBatch.DrawString(Game1.font3, "Node XY (" + hoverNode.X.ToString() + ", " + hoverNode.Y.ToString() + ")", new Vector2(50, 570), Color.White);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -156,16 +185,19 @@ namespace Elementario
             grid.Draw(spriteBatch);
             towerManager.Draw(spriteBatch);
             enemyManager.Draw(spriteBatch);
+            towerManager.DrawProjectiles(spriteBatch);
             particleEngine.Draw(spriteBatch);
             hud.Draw(spriteBatch);
 
             if (gameState == GameState.Title || gameState == GameState.Paused)
                 menu.Draw(spriteBatch);
 
+            if (debugMode)
+                DrawDebug(spriteBatch);
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
-
         public static Texture2D CreateCircleTex(int diam, GraphicsDevice graphicsDevice)
         {
             if (diam > 1000)

@@ -9,23 +9,28 @@ namespace Elementario
 {
     class Boulder:Projectile      
     {
+        float currentDamage;
 
-        public Boulder(Texture2D tex, Vector2 pos, Rectangle spriteRec, Enemy target, float speed, float damage, float splashRadius, float lifeTime, float scale, Color color)
-            :base(tex, pos, spriteRec, target, speed, damage, splashRadius, 0f, 0f, lifeTime, color)
+        public Boulder(Texture2D tex, Vector2 pos, Rectangle spriteRec, Enemy target, Vector2? dir, float speed, float damage, float splashRadius, float lifeTime, float scale, Color color, bool targetOnly)
+            :base(tex, pos, spriteRec, target, dir, speed, damage, splashRadius, 0f, 0f, lifeTime, color, targetOnly)
         {
+            currentDamage = damage;
             this.scale = scale;
-            radius = 12;
+            radius = 17;
         }
 
         public override void CollidedWithEnemy(Enemy e)
         {
-            if (e.currentHealth > damage)
-                base.CollidedWithEnemy(e);
+            if (e.currentHealth > currentDamage)
+            {
+                e.TakeDamage(this, currentDamage);
+                lifeTime = 0;
+            }
             else
             {
                 float enemyHealth = e.currentHealth;
-                e.TakeDamage(this, damage);
-                this.damage -= enemyHealth*0.75f;
+                e.TakeDamage(this, currentDamage);
+                currentDamage-= enemyHealth * 0.75f;
             }
         }
 

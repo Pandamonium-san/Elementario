@@ -15,42 +15,36 @@ namespace Elementario
         {
             name = "Earth Tower";
             projectiles = new List<Projectile>();
-            attackSpeed = 0.4f;
+            attackSpeed = 0.7f;
             projectileSpeed = 3f;
             damage = 300f;
             range = 150f;
             splashRadius = 35f;
             cost = 500;
+            upgradeCost = 300;
+
+            splashColor = Color.Brown;
 
             towerDescription = "Fires a piercing \nshot that explodes \nwhen destroyed";
         }
 
         public override void Upgrade()
         {
-            ++rank;
-            totalCost += cost;
-            damage += 100 * (rank+1);
-            splashRadius += 5;
+            base.Upgrade();
+            damage += 150 * (rank+1);
+            splashRadius += 1;
             range += 6;
-            attackSpeed += 0.2f;
+            attackSpeed += 0.05f;
             projectileSpeed += 0.1f;
             if (rank == 4)
-                cost = (int)(cost*1.5f);
+                upgradeCost = (int)(upgradeCost*1.5f);
             if (rank == 5)
             {
                 damage += damage;
                 splashRadius += 10;
-                cost -= 1000;
+                upgradeCost -= 1000;
             }
-
-            cost = (int)(cost + 800);
-        }
-
-        public override void ProjectileCollision(Projectile p, List<Enemy> enemies)
-        {
-            base.ProjectileCollision(p, enemies);
-            if (p.lifeTime <= 0)
-                Splash(p, enemies, damage/2, Color.Brown);
+            upgradeCost = (int)(upgradeCost + 350 + rank * 50);
         }
 
         public override Enemy AcquireTarget()
@@ -66,10 +60,20 @@ namespace Elementario
             }
             return closestTarget;
         }
+
         protected override void Shoot()
         {
+            Boulder b;
             float lifeTime = 10;
-            projectiles.Add(new Boulder(Game1.spriteSheet, pos, new Rectangle(0, 84, 12, 12), target, projectileSpeed, damage, splashRadius, lifeTime, 2f, Color.Brown));
+            projectiles.Add(b = new Boulder(Game1.spriteSheet, pos, SpriteRegions.Boulder, target, null, projectileSpeed, damage, splashRadius, lifeTime, 1.5f, Color.White, false));
+
+            if(rank >= 10)
+            {
+                Vector2 dir = Vector2.Transform(b.dir,Matrix.CreateRotationZ(MathHelper.ToRadians(15)));
+                projectiles.Add(new Boulder(Game1.spriteSheet, pos, SpriteRegions.Boulder, null, dir, projectileSpeed, damage / 2, splashRadius / 2, lifeTime, 0.9f, Color.White, false));
+                dir = Vector2.Transform(b.dir, Matrix.CreateRotationZ(MathHelper.ToRadians(-15)));
+                projectiles.Add(new Boulder(Game1.spriteSheet, pos, SpriteRegions.Boulder, null, dir, projectileSpeed, damage / 2, splashRadius / 2, lifeTime, 0.9f, Color.White, false));
+            }
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

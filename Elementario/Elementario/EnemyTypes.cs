@@ -16,14 +16,6 @@ namespace Elementario
             if (speed > 15f)
                 speed = 15f;
         }
-
-        protected override Color DeathColor
-        {
-            get
-            {
-                return new Color(0, 255, Game1.rnd.Next(0,200));
-            }
-        }
     }
 
     class SmallEnemy : Enemy
@@ -36,14 +28,6 @@ namespace Elementario
             bounty = (int)(bounty*0.5);
 
             radius = 8;
-        }
-
-        protected override Color DeathColor
-        {
-            get
-            {
-                return new Color(0, Game1.rnd.Next(0, 200), 255);
-            }
         }
     }
 
@@ -60,18 +44,12 @@ namespace Elementario
             if (speed > 7f)
                 speed = 7f;
         }
-
-        protected override Color DeathColor
-        {
-            get
-            {
-                return new Color(Game1.rnd.Next(100,200), Game1.rnd.Next(50,100),Game1.rnd.Next(0,80));
-            }
-        }
     }
 
     class BossEnemy : Enemy
     {
+        float animationTime, animationInterval;
+        bool rightFoot;
         public BossEnemy(Texture2D tex, Rectangle spriteRec, Node startNode, Node destination, int level)
             : base(tex, spriteRec, startNode, destination, level)
         {
@@ -81,14 +59,31 @@ namespace Elementario
             speed *= 0.5f;
             if (speed > 7f)
                 speed = 7f;
+
+            rightFoot = false;
+            animationInterval = 200 / speed;
+            animationTime = animationInterval;
         }
 
-        protected override Color DeathColor
+        private void Animate(GameTime gameTime)
         {
-            get
+            animationTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (animationTime <= 0)
             {
-                return new Color(Game1.rnd.Next(0, 255), Game1.rnd.Next(0, 255), Game1.rnd.Next(0, 255));
+                animationTime = animationInterval;
+                rightFoot = !rightFoot;
+                if (rightFoot)
+                    spriteRec.Y += 24;
+                else
+                    spriteRec.Y -= 24;
             }
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            Animate(gameTime);
+            base.Update(gameTime);
+        }
+
     }
 }

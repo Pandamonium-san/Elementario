@@ -9,56 +9,56 @@ namespace Elementario
 {
     class FireTower:Tower
     {
+        int nrOfProjectiles = 1;
 
         public FireTower(Texture2D tex, Vector2 pos, Rectangle spriteRec)
             : base(tex, pos, spriteRec)
         {
             name = "Fire Tower";
             projectiles = new List<Projectile>();
-            attackSpeed = 5f;
+            attackSpeed = 10f;
             projectileSpeed = 5f;
             damage = 35f;
             range = 70f;
+            splashRadius = 50f;
             cost = 150;
-            splashRadius = 45f;
+            upgradeCost = 150;
+
+            splashColor = Color.Orange*0.5f;
 
             towerDescription = "Rapidly shoots \nexploding fireballs \nin random directions";
         }
 
-        public override void ProjectileCollision(Projectile p, List<Enemy> enemies)
-        {
-            base.ProjectileCollision(p, enemies);
-            if(p.lifeTime <= 0)
-            Splash(p, enemies, damage/4, Color.Orange*0.7f);
-        }
-
-        protected override void Shoot()
-        {
-            float lifeTime = ((range/projectileSpeed)/60)*(float)Game1.rnd.NextDouble();
-            Vector2 dir = new Vector2(Game1.rnd.Next(-20, 20) / 20f, Game1.rnd.Next(-20, 20) / 20f);
-            dir.Normalize();
-            projectiles.Add(new Projectile(Game1.spriteSheet, pos, new Rectangle(0, 84, 12, 12), dir, projectileSpeed, damage, splashRadius, lifeTime, Color.Red));
-        }
-
         public override void Upgrade()
         {
-            ++rank;
-            totalCost += cost;
+            base.Upgrade();
             damage += (rank+1)*15;
-            range += 5;
-            splashRadius += 2;
-            attackSpeed += 1f;
-            if (rank == 4)
-                cost += 500;
-            if (rank == 5)
+            range += 3;
+            splashRadius += 0.4f;
+            attackSpeed += 0.2f;
+            if (rank == 15)
+                ++nrOfProjectiles;
+            if (rank == 30)
             {
-                attackSpeed *= 2f;
-                cost -= 500;
+                nrOfProjectiles += 2;
+                splashColor = Color.Orange * 0.1f;
             }
             if (rank > 5)
                 damage += 5 * rank;
 
-            cost = (int)(cost + 400);
+            upgradeCost = (int)(upgradeCost + 200 + rank * 50);
+        }
+
+
+        protected override void Shoot()
+        {
+            for (int i = 0; i < nrOfProjectiles; i++)
+            {
+                float lifeTime = ((range / projectileSpeed) / 60) * (float)Game1.rnd.NextDouble();
+                Vector2 dir = new Vector2(Game1.rnd.Next(-20, 20) / 20f, Game1.rnd.Next(-20, 20) / 20f);
+                dir.Normalize();
+                projectiles.Add(new Projectile(Game1.spriteSheet, pos, SpriteRegions.FireBullet, null, dir, projectileSpeed, damage, splashRadius, slowAmount, slowDuration, lifeTime, Color.White, false));
+            }
         }
 
         public override void DrawTowerInfo(SpriteBatch spriteBatch, int windowX, int windowY)

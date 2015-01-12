@@ -18,6 +18,7 @@
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnemyTypes.cs" />
+    <Compile Include="RicochetP.cs" />
+    <Compile Include="SpriteRegions.cs" />
     <Compile Include="Tower.cs" />
     <Compile Include="Boulder.cs" />
     <Compile Include="Button.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="WallTower.cs" />
     <Compile Include="WaterTower.cs" />
     <Compile Include="WindTower.cs" />
   </ItemGroup>
@@ -106,8 +109,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tower DefenseContent\Tower DefenseContent.contentproj">
-      <Name>Tower_DefenseContent</Name>
+    <ProjectReference Include="..\ElementarioContent\ElementarioContent.contentproj">
+      <Project>{933C4B3E-9171-4074-9DA7-9C9ADB363789}</Project>
+      <Name>ElementarioContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>

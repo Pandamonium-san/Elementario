@@ -88,14 +88,11 @@ namespace Elementario
 
         public static float Heuristic(Node n)
         {
-            float dx, dy, H;
+            float  H;
 
             H = Math.Abs(targetNode.X - n.X) + Math.Abs(targetNode.Y - n.Y);    //Manhattan distance
 
-            dx = Math.Abs(targetNode.X - n.X)^2;  //tiebreaker Euclidean distance
-            dy = Math.Abs(targetNode.Y - n.Y)^2;
-
-            return H + (dx + dy) / 10000; //Avoid sqrt because it's slow
+            return H + (targetNode.pos - n.pos).Length() / 1000; //tiebreaker Euclidean distance
         }
 
         public static void CloseNode(Node n)

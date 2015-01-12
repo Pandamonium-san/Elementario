@@ -16,12 +16,13 @@ namespace Elementario
         {
             name = "Wind Tower";
             projectiles = new List<Projectile>();
-            attackSpeed = 0.8f;
-            projectilesFired = 1;
+            attackSpeed = 1.2f;
+            projectilesFired = 2;
             projectileSpeed = 7f;
             damage = 25f;
-            range = 200f;
+            range = 150f;
             cost = 100;
+            upgradeCost = 100;
 
             towerDescription = "Once upgraded, \nshoots bursts of \nhoming projectiles at \nlong range";
         }
@@ -38,16 +39,21 @@ namespace Elementario
 
         public override void Upgrade()
         {
-            ++rank;
-            totalCost += cost;
-            attackSpeed += 0.1f;
+            base.Upgrade();
+            attackSpeed += 0.05f;
             damage += 5 * rank;
+            range += 7;
+            projectileSpeed += 0.05f;
             if (projectilesFired >= 9)
                 damage += 10 * rank;
-            range += 10;
-            cost = (int)(cost + 350);
             if (projectilesFired < 9)
                 ++projectilesFired;
+            if (rank == 20)
+            {
+                slowAmount = 0.6f;
+            }
+
+            upgradeCost = (int)(upgradeCost + rank * 75);
         }
 
         protected override void Shoot()
@@ -60,7 +66,7 @@ namespace Elementario
                 {
                     if (projectilesAlreadyFired >= projectilesFired)
                         break;
-                    projectiles.Add(new Projectile(Game1.spriteSheet, pos, new Rectangle(0, 84, 12, 12), new Vector2(i, j), projectileSpeed, damage, 0f, lifeTime, Color.LightGreen));
+                    projectiles.Add(new Projectile(Game1.spriteSheet, pos, SpriteRegions.WindBullet, null, new Vector2(i, j), projectileSpeed, damage, splashRadius, slowAmount, slowDuration, lifeTime, Color.White, false));
                     ++projectilesAlreadyFired;
                 }
             }

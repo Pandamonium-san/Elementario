@@ -15,6 +15,7 @@ namespace Elementario
         public Color color = Color.White;
         public float alpha = 1f;
         public float scale = 1f;
+        public float rotation = 0f;
 
         public Sprite(Texture2D tex, Vector2 pos, Rectangle spriteRec)
         {
@@ -26,7 +27,7 @@ namespace Elementario
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, pos, spriteRec, color * alpha, 0f, origin, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(tex, pos, spriteRec, color * alpha, rotation, origin, scale, SpriteEffects.None, 0f);
         }
 
     }

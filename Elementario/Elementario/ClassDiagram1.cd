@@ -1,128 +1,219 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Tower_Defense.BaseTower" Collapsed="true">
-    <Position X="0.5" Y="3.25" Width="1.5" />
+  <Class Name="Elementario.Boulder" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQDQAAEAAAAhBAAJAAAAAAAACAAAAAAAABAAAAAAAA=</HashCode>
-      <FileName>BaseTower.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAAE=</HashCode>
+      <FileName>Boulder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Button" Collapsed="true">
-    <Position X="4.5" Y="3.5" Width="1.5" />
+  <Class Name="Elementario.Button" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAQAAAAAAAAAAgAAAAIAAIAAAAAAAACAAAAQAAAAAgA=</HashCode>
       <FileName>Button.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Enemy" Collapsed="true">
-    <Position X="5" Y="1.75" Width="1.5" />
+  <Class Name="Elementario.EarthTower" Collapsed="true">
+    <Position X="6.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQgAAAICCgAAgAABAACAAIAAAGkAwAMAARghEAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAABAAgAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>EarthTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.Enemy" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAQkAAAICCgEAgAABACCAAIJAAGkAwAIIARghFgAAAA=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.EnemyManager" Collapsed="true">
-    <Position X="8" Y="0.5" Width="1.5" />
+  <Class Name="Elementario.EnemyManager" Collapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAQAoAEAAAAAoABAAEAAAABgAAQQACQAAQ=</HashCode>
+      <HashCode>AgQIAACAAIEAAoEEAAAIAqABAAAAAQABgCgZAACAAAA=</HashCode>
       <FileName>EnemyManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.FireTower" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+  <Class Name="Elementario.FastEnemy" Collapsed="true">
+    <Position X="24.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnemyTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.SmallEnemy" Collapsed="true">
+    <Position X="17.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnemyTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.BigEnemy" Collapsed="true">
+    <Position X="19.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnemyTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.BossEnemy" Collapsed="true">
+    <Position X="22" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>EnemyTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.FireTower" Collapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAgAAAAAACAAAAAAAAAAACAAAA=</HashCode>
       <FileName>FireTower.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Game1" Collapsed="true">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+  <Class Name="Elementario.Game1" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYGEEgAAAIAIwBBAKAAAAAgAAFAACgAAAAgAAAAAAQ=</HashCode>
+      <HashCode>AAYGAEgQAIIAA4ZBAKAAAAgAAAAAACgAgAAgAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Grid" Collapsed="true">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+  <Class Name="Elementario.Grid" Collapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAAgDABIAAAAEAAAAAAAAAAAACAAAAIAA=</HashCode>
       <FileName>Grid.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.HUD" Collapsed="true">
-    <Position X="8" Y="1.5" Width="1.5" />
+  <Class Name="Elementario.HUD" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQQIAAAAEAAAgAAoAIAAIAAAAIAAAACDAAEAACABAA=</HashCode>
+      <HashCode>AAQAIAAAAAgAAgAAoAIAAIAAAAIAAAACDAAEAACAJAA=</HashCode>
       <FileName>HUD.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Node" Collapsed="true">
-    <Position X="11.5" Y="1.5" Width="1.5" />
+  <Class Name="Elementario.Menu" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAApgAIAAAABwAAAKAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.Node" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAQAAAAAAABAACAIAIAAQAAgAAAAAIAAGEAAYAA=</HashCode>
       <FileName>Node.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.PathFinder" Collapsed="true">
-    <Position X="8" Y="2.5" Width="1.5" />
+  <Class Name="Elementario.Particle" Collapsed="true">
+    <Position X="26.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAQgAAAIAAAAAAAAAAAQABAAQAAABAAAA=</HashCode>
+      <FileName>Particle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.ParticleEngine2D" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAAgAAAAgAAAAAIAAAQAQAAAAAAAAAAAA=</HashCode>
+      <FileName>ParticleEngine2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.PathFinder" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAIBAAAABAAAAAAIAIAIQAAASCAAAgE=</HashCode>
       <FileName>PathFinder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Program" Collapsed="true">
-    <Position X="9.75" Y="2.5" Width="1.5" />
+  <Class Name="Elementario.Program" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Projectile" Collapsed="true">
+  <Class Name="Elementario.Projectile" Collapsed="true">
     <Position X="2.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAACCAAwAAAIAAIAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAUAAAAAKCAAwAAAoABIKAAIAAAAAwAAQAAAQAAAAAA=</HashCode>
       <FileName>Projectile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Sprite" Collapsed="true">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+  <Class Name="Elementario.RicochetP" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAAAAAAAgAAAoAAAIAAAAAAAACAAAAQAAAAAAA=</HashCode>
+      <HashCode>gBQAIAIAAAAAAAAAAAAIAAAIAAACAAAAAAAAQAAAAAE=</HashCode>
+      <FileName>RicochetP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.Sprite" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAgAAAoCAAIACAAAAAACAAAAQAAAAAAA=</HashCode>
       <FileName>Sprite.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.TextButton" Collapsed="true">
-    <Position X="3.25" Y="4.75" Width="1.5" />
+  <Class Name="Elementario.SpriteRegions" Collapsed="true">
+    <Position X="32.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQCAAIAAAQAAAAAAAAQCgBAABARAFAAIAgAQQAQg=</HashCode>
+      <FileName>SpriteRegions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.TextButton" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAgAAAAAAAAACAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TextButton.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.TextureButton" Collapsed="true">
-    <Position X="5.5" Y="4.75" Width="1.5" />
+  <Class Name="Elementario.TextureButton" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAgAAAAAAAAABAgAAAAAAAAAAAAA=</HashCode>
       <FileName>TextureButton.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.Tower" Collapsed="true">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+  <Class Name="Elementario.Tower" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAQAQIAQAAAgAAAAAAAQAAAAAUAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CAQDQAQMAQAEhBEAJAAgAQAIASAUAiAAQABAAACAAAA=</HashCode>
       <FileName>Tower.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Tower_Defense.TowerManager" Collapsed="true">
-    <Position X="11.5" Y="2.5" Width="1.5" />
+  <Class Name="Elementario.TowerManager" Collapsed="true">
+    <Position X="34.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>DAYUCAAAAIAAAiAAAAAEBAKBBAAAAASEAAFAAAEAAAA=</HashCode>
+      <HashCode>DAZUSAAAAICBAiAAAAAEBAKBBAAAAASEAQFAAAAAAAA=</HashCode>
       <FileName>TowerManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="KeyMouseReader" Collapsed="true">
-    <Position X="9.75" Y="1.5" Width="1.5" />
+  <Class Name="Elementario.WallTower" Collapsed="true">
+    <Position X="10.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BBQCAAAAAAAAAAEAAAAAAAACAAAAAAAAAAAIAAHAAAA=</HashCode>
+      <HashCode>gAAAAAAAAAAABAAAAAAgAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>WallTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.WaterTower" Collapsed="true">
+    <Position X="13" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgEABAAABAAgAAAAAAAAAAAAAABAAACAAAA=</HashCode>
+      <FileName>WaterTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elementario.WindTower" Collapsed="true">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAABAAAIAAgAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>WindTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyMouseReader" Collapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBQCAAAAAAAAAAEAAAAEAAACAAAAAAAAAAAIAAHAAAA=</HashCode>
       <FileName>KeyMouseReader.cs</FileName>
     </TypeIdentifier>
   </Class>
